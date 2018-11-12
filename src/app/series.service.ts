@@ -7,8 +7,8 @@ import { catchError, map, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class SeriesService {
-  private donwloadFileUrl = 'http://localhost:9000/donwloadFile/';  // URL to web api
-  private searchSubtitleURL='http://localhost:9000/searchSubtitles'
+  private donwloadFileUrl = 'https://subtitlesrestapi.herokuapp.com/donwloadFile/';  // URL to web api
+  private searchSubtitleURL='https://subtitlesrestapi.herokuapp.com/searchSubtitles'
 
 
   constructor(private http: HttpClient) { }
