@@ -20,6 +20,7 @@ export class SeriesService {
       .set('season', season)
       .set('episode', episode)
       .set('language', lang);
+      
     return this.http.get<any>(this.searchSubtitleURL, { params: params })
       .pipe(
         catchError(this.handleError('searchSubtitle', []))
