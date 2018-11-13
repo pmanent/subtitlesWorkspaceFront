@@ -8,29 +8,40 @@ import { catchError, map, tap } from 'rxjs/operators';
 })
 export class SeriesService {
   private donwloadFileUrl = 'https://subtitlesrestapi.herokuapp.com/donwloadFile/';  // URL to web api
-  private searchSubtitleURL='https://subtitlesrestapi.herokuapp.com/searchSubtitles'
+  private searchSubtitleURL='https://subtitlesrestapi.herokuapp.com/searchSubtitles';
+  private headers= new HttpHeaders({
+    'Content-Type':  'application/x-www-form-urlencoded',
+    'Authorization': 'Basic '+window.btoa("user:password"),
+    'Access-Control-Allow-Origin': '*'
+  });
+  
 
 
   constructor(private http: HttpClient) { }
 
   searchSubtitle (query,season,episode,lang): Observable<any> {
     console.log(query);
+    
+    this.searchSubtitleURL='http://localhost:9000/searchSubtitles';
+    
     const params = new HttpParams()
       .set('query', query)
       .set('season', season)
       .set('episode', episode)
       .set('language', lang);
       
-    return this.http.get<any>(this.searchSubtitleURL, { params: params })
+    return this.http.get<any>(this.searchSubtitleURL, { params: params, headers: this.headers })
       .pipe(
         catchError(this.handleError('searchSubtitle', []))
       );
   }
 
   downloadFile (subtitleFileId,fileName): Observable<any> {
+    this.donwloadFileUrl = 'http://localhost:9000/donwloadFile/';
+    
     const params = new HttpParams()
       .set('fileName', fileName);
-    return this.http.get<any>(this.donwloadFileUrl+subtitleFileId,{ params: params })
+    return this.http.get<any>(this.donwloadFileUrl+subtitleFileId,{ params: params, headers: this.headers  })
       .pipe(
         catchError(this.handleError('donwloadFile', []))
       );
