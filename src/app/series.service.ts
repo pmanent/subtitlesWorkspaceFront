@@ -9,7 +9,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 export class SeriesService {
   private donwloadFileUrl = 'https://subtitlesrestapi.herokuapp.com/donwloadFile/';  // URL to web api
   private searchSubtitleURL='https://subtitlesrestapi.herokuapp.com/searchSubtitles';
-  private downloadSubtitleURL = 'http://localhost:9000/donwloadSubtitle';
+  private downloadSubtitleURL = 'https://subtitlesrestapi.herokuapp.com/donwloadSubtitle';
   private headers= new HttpHeaders({
     'Content-Type':  'application/x-www-form-urlencoded',
     
@@ -22,9 +22,7 @@ export class SeriesService {
 
   searchSubtitle (query,season,episode,lang): Observable<any> {
     console.log(query);
-    
-    this.searchSubtitleURL='http://localhost:9000/searchSubtitles';
-    
+        
     const params = new HttpParams()
       .set('query', query)
       .set('season', season)
@@ -38,7 +36,6 @@ export class SeriesService {
   }
 
   downloadFile2(subtitleFileId,fileName){
-    this.donwloadFileUrl = 'http://localhost:9000/donwloadFile/';
     let url= this.donwloadFileUrl+subtitleFileId+'?fileName='+fileName;
     window.location.href=url;
 

@@ -13,25 +13,15 @@ import { SpinnerComponent } from './views/spinner/spinner.component';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent implements OnInit{
-  title = 'seriesWorkspace';
-  searchLabel = 'Big Mouth';
+  title = 'Series Workspace';
+  searchLabel = '';
   actualLanguage = 'eng';
-  season='1';
-  episode='1';
+  season='';
+  episode='';
   displayedColumns: string[] = ['Name', 'downloadsNo','View', 'Download','Open'];
   spinnerRef=null;
 
-  dataSource=[{
-                downloadLink: "https://dl.opensubtitles.org/en/download/src-api/vrf-19f40c62/sid-pqvKkEt9CAxPhqmQ0cTC6d5zu23/file/1955695854.gz",
-                downloadsNo: 7487,
-                encoding: "UTF-8",
-                fileName: "Big.Mouth.S01E01.WEBRip.x264-RARBG.English.srt",
-                format: "srt",
-                id: 7114694,
-                language: "English",
-                osLink: "http://www.opensubtitles.org/en/subtitles/7114694/sid-pqvKkEt9CAxPhqmQ0cTC6d5zu23/big-mouth-ejaculation-en",
-                subtitleFileId: 1955695854
-              }];
+  dataSource=[];
 
   constructor(private seriesService: SeriesService, private authorizationService: AuthorizationService, public dialog: MatDialog) { 
     
