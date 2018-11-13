@@ -10,6 +10,7 @@ export class SeriesService {
   private donwloadFileUrl = 'https://subtitlesrestapi.herokuapp.com/donwloadFile/';  // URL to web api
   private searchSubtitleURL='https://subtitlesrestapi.herokuapp.com/searchSubtitles';
   private downloadSubtitleURL = 'https://subtitlesrestapi.herokuapp.com/donwloadSubtitle';
+  
   private headers= new HttpHeaders({
     'Content-Type':  'application/x-www-form-urlencoded',
     
