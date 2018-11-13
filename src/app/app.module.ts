@@ -1,26 +1,34 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule }    from '@angular/common/http';
+import { HttpClientModule ,HTTP_INTERCEPTORS }    from '@angular/common/http';
+
 import { BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MatListModule} from '@angular/material/list';
 import { MatIconModule} from '@angular/material/icon';
 import { MatTableModule} from '@angular/material/table';
-import {MatSelectModule} from '@angular/material/select';
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatSelectModule} from '@angular/material/select';
+import { MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
-import {MatGridListModule} from '@angular/material/grid-list';
+import { MatGridListModule} from '@angular/material/grid-list';
+import {MatDialogModule, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material/dialog';
+
 
 import { FormsModule } from '@angular/forms';
-
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AuthorizationInterceptor } from './services/authorization.interceptor';
+import { DialogComponent } from './views/dialog/dialog.component';
+import { SpinnerComponent } from './views/spinner/spinner.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DialogComponent,
+    SpinnerComponent    
   ],
   imports: [
     BrowserModule,
@@ -34,9 +42,22 @@ import { AppComponent } from './app.component';
     MatSelectModule,
     MatFormFieldModule,
     MatGridListModule,
-    MatInputModule
+    MatInputModule,
+    MatDialogModule,
+    MatProgressSpinnerModule
+    
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthorizationInterceptor,
+      multi: true
+    },
+    {
+      provide: MAT_DIALOG_DEFAULT_OPTIONS,
+      useValue: {hasBackdrop: false}}
+  ],
+  bootstrap: [AppComponent],
+  entryComponents: [DialogComponent,SpinnerComponent]
 })
 export class AppModule { }

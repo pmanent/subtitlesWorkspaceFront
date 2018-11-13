@@ -9,12 +9,13 @@ import { catchError, map, tap } from 'rxjs/operators';
 export class SeriesService {
   private donwloadFileUrl = 'https://subtitlesrestapi.herokuapp.com/donwloadFile/';  // URL to web api
   private searchSubtitleURL='https://subtitlesrestapi.herokuapp.com/searchSubtitles';
+  private downloadSubtitleURL = 'http://localhost:9000/donwloadSubtitle';
   private headers= new HttpHeaders({
     'Content-Type':  'application/x-www-form-urlencoded',
-    'Authorization': 'Basic '+window.btoa("user:password"),
+    
     'Access-Control-Allow-Origin': '*'
   });
-  
+  //'Authorization': 'Basic '+window.btoa("user:password"),
 
 
   constructor(private http: HttpClient) { }
@@ -30,28 +31,27 @@ export class SeriesService {
       .set('episode', episode)
       .set('language', lang);
       
-    return this.http.get<any>(this.searchSubtitleURL, { params: params, headers: this.headers })
+    return this.http.get<any>(this.searchSubtitleURL, { params: params})
       .pipe(
         catchError(this.handleError('searchSubtitle', []))
       );
   }
 
-  downloadFile (subtitleFileId,fileName): Observable<any> {
-    this.donwloadFileUrl = 'http://localhost:9000/donwloadFile/';
-    
-    const params = new HttpParams()
-      .set('fileName', fileName);
-    return this.http.get<any>(this.donwloadFileUrl+subtitleFileId,{ params: params, headers: this.headers  })
-      .pipe(
-        catchError(this.handleError('donwloadFile', []))
-      );
-  }
   downloadFile2(subtitleFileId,fileName){
+    this.donwloadFileUrl = 'http://localhost:9000/donwloadFile/';
     let url= this.donwloadFileUrl+subtitleFileId+'?fileName='+fileName;
     window.location.href=url;
 
   }
 
+  downloadSubtitle (subtitleFileId): Observable<any> {  
+    const params = new HttpParams()
+      .set('id', subtitleFileId);
+    return this.http.get<any>(this.downloadSubtitleURL,{ params: params })
+      .pipe(
+        catchError(this.handleError('downloadSubtitle', []))
+      );
+  }
   /**
    * Handle Http operation that failed.
    * Let the app continue.
