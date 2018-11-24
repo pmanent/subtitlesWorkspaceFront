@@ -17,7 +17,7 @@ constructor(public auth: AuthorizationService) {}
     
     request = request.clone({
       setHeaders: {
-        Authorization: `Basic ${this.auth.generateAuthorization()}`
+        Authorization: `${this.auth.generateAuthorization()}`
       }
     });
 
