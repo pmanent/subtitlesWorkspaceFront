@@ -13,7 +13,7 @@ import { SpinnerComponent } from './views/spinner/spinner.component';
   styleUrls: ['./app.component.sass']
 })
 export class AppComponent implements OnInit{
-  title = 'Series Workspace';
+  title = 'Subtiltes Search Engine powered by www.opensubtitles.org';
   searchLabel = '';
   actualLanguage = 'eng';
   season='';
